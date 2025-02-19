@@ -1,0 +1,34 @@
+#avec une app
+docker build -t inference-ml .   # rq va lire le dockerfile dans lequel il y a CMD [uvicorn, etc ...] et crée l'image nommée inference_ml. fabrique le service web.
+docker run -d --name inference-ml-container -p 80:80 inference-ml #crée et active un conteneur. -d pour detacher le conteneur du terminal. (attacher un volume si besoin de partage de fichiers)
+curl -X 'POST' "http://localhost/predict" -H "Content-Type: application/json" -d '{"features": [1, 2, 4]}' #interoger l'api dans le terminal
+
+
+#commandes utiles
+docker image ls # liste des images existantes
+docker rmi <ID_ou_nom_de_l'image> # remove image
+
+docker ps #conteneurs actifs
+docker ps -a # tous les conteneurs
+docker rm <>
+
+docker start <>
+docker stop <ID_ou_nom_du_conteneur> 
+docker restart <>
+
+docker logs <> # pour le debug !
+
+
+
+# en CLI (pour du 1 shot) 
+docker build -t inference-app .
+docker run --gpus all  -v $(pwd)/images:/image_folder  inference-ml  python3 inference.py /image_folder/defaut_blanc.jpg #pas possible car relance un conteneur à chaque fois
+
+
+
+
+
+
+
+
+
